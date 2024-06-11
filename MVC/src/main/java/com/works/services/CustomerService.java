@@ -5,6 +5,8 @@ import com.works.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -12,7 +14,11 @@ public class CustomerService {
     final CustomerRepository cRepo;
 
     public boolean login(Customer customer) {
-        return true;
+        Optional<Customer> optionalCustomer = cRepo.findByEmailEqualsAndPasswordEquals(customer.getEmail(), customer.getPassword());
+        if (optionalCustomer.isPresent()) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,12 +17,26 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <h2>User Login</h2>
+                <div th:if="${errors != null}">
+                    <div th:each="item : ${errors}">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong th:text="${item.getField()}"></strong> <th:block th:text="${item.getDefaultMessage()}"></th:block>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${error != null}">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Login Error</strong> <th:block th:text="${error}"></th:block>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
                 <form action="userLogin" method="post">
                     <div class="mb-3">
-                        <input name="email" class="form-control" placeholder="E-Mail" />
+                        <input  name="email" class="form-control" placeholder="E-Mail" />
                     </div>
                     <div class="mb-3">
-                        <input name="password" type="password" class="form-control" placeholder="Password" />
+                        <input  name="password" type="password" class="form-control" placeholder="Password" />
                     </div>
                     <button class="btn btn-success">Login</button>
                 </form>
