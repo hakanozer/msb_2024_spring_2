@@ -14,7 +14,29 @@
 <body>
     <div class="container">
         <th:block th:include="inc/navbar"></th:block>
-        <h2>Welcome Dashboard</h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Film Add</h3>
+                <form action="/filmAdd" method="post">
+                    <div class="mb-3">
+                        <input name="title" placeholder="Title" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <input type="datetime-local" name="fdate" placeholder="Date" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <select name="category" class="form-select">
+                            <option value="korku">Korku</option>
+                            <option value="komedi">Komedi</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success">Send</button>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h3>Film List</h3>
+            </div>
+        </div>
     </div>
 </body>
 </html>
