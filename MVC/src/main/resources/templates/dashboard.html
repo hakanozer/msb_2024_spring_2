@@ -15,7 +15,7 @@
     <div class="container">
         <th:block th:include="inc/navbar"></th:block>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <h3>Film Add</h3>
                 <form action="/filmAdd" method="post">
                     <div class="mb-3">
@@ -25,16 +25,43 @@
                         <input type="datetime-local" name="fdate" placeholder="Date" class="form-control" />
                     </div>
                     <div class="mb-3">
-                        <select name="category" class="form-select">
-                            <option value="korku">Korku</option>
-                            <option value="komedi">Komedi</option>
+                        <select th:if="${categories != null}" name="category" class="form-select">
+                            <th:block th:each="cat : ${categories}">
+                                <option th:value="${cat.getCid()}" th:text="${cat.getName()}"> </option>
+                            </th:block>
                         </select>
                     </div>
                     <button class="btn btn-success">Send</button>
                 </form>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <h3>Film List</h3>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <th:block th:if="${films != null}">
+                        <tr th:each="item : ${films}">
+                            <th scope="row" th:text="${item.getFid()}" ></th>
+                            <td th:text="${item.getTitle()}"></td>
+                            <td th:text="${item.getFdate()}"></td>
+                            <td th:text="${item.getCategory().getName()}" ></td>
+                            <td>
+                                <a th:href="${'filmDelete/'+item.getFid()}" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
+                    </th:block>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
