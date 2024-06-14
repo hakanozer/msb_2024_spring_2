@@ -4,6 +4,9 @@ import com.works.configs.Util;
 import com.works.entities.Product;
 import com.works.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +59,20 @@ public class ProductService {
     public ResponseEntity allAdd(List<Product> productList) {
         List<Product> ls = productRepository.saveAll(productList);
         return Util.success(ls);
+    }
+
+    public ResponseEntity pageList(Integer pageNo, Integer pageSize) {
+        int currentPageNo = 0;
+        int currentPageSize = 10;
+        if (pageNo > -1) {
+            currentPageNo = pageNo;
+        }
+        if ( pageSize > 0 && pageSize < 51) {
+            currentPageSize = pageSize;
+        }
+        Pageable pageable = PageRequest.of(currentPageNo, currentPageSize);
+        Page<Product> productList = productRepository.findAll(pageable);
+        return Util.success(productList);
     }
 
 }

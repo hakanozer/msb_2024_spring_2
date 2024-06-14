@@ -41,4 +41,12 @@ public class ProductRestController {
         return productService.allAdd(productList);
     }
 
+    @GetMapping("pageList")
+    public ResponseEntity pageList(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        return productService.pageList(pageNo, pageSize );
+    }
+
 }
