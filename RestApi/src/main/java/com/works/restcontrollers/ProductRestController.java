@@ -49,4 +49,15 @@ public class ProductRestController {
         return productService.pageList(pageNo, pageSize );
     }
 
+    @GetMapping("search")
+    public ResponseEntity search(
+            @RequestParam("") String q,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "pid") String attr,
+            @RequestParam(defaultValue = "asc") String type
+    ) {
+        return productService.search(q, pageNo, pageSize, attr, type);
+    }
+
 }
